@@ -1,4 +1,7 @@
 import { useState } from "react";
+
+import FormInput from "../form-input/form-input.component";
+
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -17,7 +20,7 @@ const SignUpForm = () => {
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -37,9 +40,9 @@ const SignUpForm = () => {
 
       resetFormFields();
     } catch (err) {
-      if(err.code == 'auth/email-already-in-use'){
-        alert('Cannot create user, email alread in use');
-      }else {
+      if (err.code === "auth/email-already-in-use") {
+        alert("Cannot create user, email alread in use");
+      } else {
         console.log(err);
       }
     }
@@ -55,35 +58,32 @@ const SignUpForm = () => {
     <div>
       <h1>SignUp with your email and password</h1>
       <form onSubmit={handleSubmit}>
-        <label>Display Name</label>
-        <input
+        <FormInput
+          label="Display Name"
           type="text"
           required
           onChange={handleChange}
           name="displayName"
           value={displayName}
         />
-
-        <label>Email</label>
-        <input
+        <FormInput
+          label="Email"
           type="email"
           required
           onChange={handleChange}
           name="email"
           value={email}
         />
-
-        <label>Password</label>
-        <input
+        <FormInput
+          label="Password"
           type="password"
           required
           onChange={handleChange}
           name="password"
           value={password}
         />
-
-        <label>Confirm Password</label>
-        <input
+        <FormInput
+          label="Confirm Password"
           type="password"
           required
           onChange={handleChange}
