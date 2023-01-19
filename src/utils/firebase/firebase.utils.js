@@ -5,22 +5,35 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDd2WSWF9Kga0oG32tPFCHn8ZAfk9kcaE8",
-  authDomain: "crown-clothing-5ad93.firebaseapp.com",
-  projectId: "crown-clothing-5ad93",
-  storageBucket: "crown-clothing-5ad93.appspot.com",
-  messagingSenderId: "319452692237",
-  appId: "1:319452692237:web:e5cc88b3109755a8467a44",
+  apiKey: "AIzaSyCHadHocoBV5HYYqi1YVdcCddoaGapumFo",
+  authDomain: "crown-clothing-86d53.firebaseapp.com",
+  projectId: "crown-clothing-86d53",
+  storageBucket: "crown-clothing-86d53.appspot.com",
+  messagingSenderId: "457187154173",
+  appId: "1:457187154173:web:327d6b8eba72a04c83c694",
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
 
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
-    prompt: "select_account"
+  prompt: "select_account",
 });
 
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+export const db = getFirestore();
+
+export const createUserDocumentFromAuth = async (userAuth) => {
+    const userDocRef = doc(db, 'users', userAuth.uid);
+
+    console.log(userDocRef);
+
+    const userSnapshot = await getDoc(userDocRef);
+    console.log(userSnapshot);
+    console.log(userSnapshot.exists());
+}
